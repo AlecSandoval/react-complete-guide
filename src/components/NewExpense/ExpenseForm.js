@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import './ExpenseForm.css';
 
-const ExpenseForm = (props) => {
+const ExpenseForm = props => {
   /* Setting state one value at a time: */
   // const [enteredTitle, setEnteredTitle] = useState('');
   // const [enteredAmount, setEnteredAmount] = useState(0);
@@ -46,11 +46,12 @@ const ExpenseForm = (props) => {
     
     const expenseData = {
       title: expense.enteredTitle,
-      amount: expense.enteredAmount,
-      date: expense.enteredDate
+      amount: +expense.enteredAmount,
+      date: new Date(expense.enteredDate)
     };
 
     props.onSaveExpenseData(expenseData);
+    props.onCancel();
     setExpense({ enteredTitle: '', enteredAmount: 0, enteredDate: '' });
   };
 
@@ -71,6 +72,7 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={props.onCancel}>Cancel</button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
